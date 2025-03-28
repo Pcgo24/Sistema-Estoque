@@ -1,14 +1,17 @@
 <?php
-$servername = "localhost:3307";
-$username = "root";
-$password = "";
-$dbname = "sistema_estoque";
 
-// Criar conexão
-$conn = new mysqli($servername, $username, $password, $dbname);
+require_once 'classes/database.php';
 
-// Checar conexão
-if ($conn->connect_error) {
-    die("Falha de conexão: " . $conn->connect_error);
+$servername = 'localhost:3306';
+$username = 'root';
+$password = '';
+$dbname = 'sistema_estoque';
+
+try {
+    $db = new DataBase($servername, $username, $password, $dbname);
+    $conn = $db->getConnection();
+} catch (PDOException $e) {
+    die ("Falha na conexão com o banco de dados: " . $e -> getMessage());
 }
+
 ?>
