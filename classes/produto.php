@@ -16,6 +16,14 @@ class Produto {
             return $stmt -> fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function obter_produto($id) {
+            $sql = "SELECT * FROM " . $this->table . " WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
         public function cadastrar_produto ($nome, $descricao, $quantidade, $preco) {
             $sql = "INSERT INTO " . $this->table . " (nome, descricao, quantidade, preco) VALUES (:nome, :descricao, :quantidade, :preco)";
             $stmt = $this->conn->prepare($sql);
@@ -38,7 +46,7 @@ class Produto {
         }
 
         public function excluir_produto ($id) {
-            $sql = "DELETE * FROM " . $this->table . " WHERE id = :id";
+            $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':id', $id);
             return $stmt->execute();

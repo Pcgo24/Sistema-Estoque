@@ -5,7 +5,7 @@ require_once '../classes/produto.php';
 
 session_start();
 
-$produto = new Produto($db);
+$produtoObj = new Produto($db);
 
 $action = $_GET['action'] ?? 'listar_produtos';
 $id = $_GET['id'] ?? null;
@@ -19,30 +19,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $preco = $_POST['preco'] ?? null;
 
     if ($action == 'cadastrar_produto' && $nome && $descricao && $quantidade && $preco) {
-        if ($produto->cadastrar_produto($nome, $descricao, $quantidade, $preco)) {
+        if ($produtoObj->cadastrar_produto($nome, $descricao, $quantidade, $preco)) {
             $success_message = "Produto cadastrado com sucesso!";
         } else {
             $error_message = "Erro ao cadastrar o produto.";
         }
     } elseif ($action == 'editar_produto' && $id && $nome && $descricao && $quantidade && $preco) {
-        if ($produto->editar_produto($id, $nome, $descricao, $quantidade, $preco)) {
+        if ($produtoObj->editar_produto($id, $nome, $descricao, $quantidade, $preco)) {
             $success_message = "Produto editado com sucesso!";
         } else {
             $error_message = "Erro ao editar o produto.";
         }
     } elseif ($action == 'excluir_produto' && $id) {
-        var_dump($id); // Debugging: Verifica o ID
-        if ($produto->excluir_produto($id)) {
+        if ($produtoObj->excluir_produto($id)) {
             $success_message = "Produto excluído com sucesso!";
-            header("Location: index.php"); // Redireciona após a exclusão
+            header("Location: index.php");
             exit;
         } else {
             $error_message = "Erro ao excluir o produto.";
         }
     }
+    header("Location: index.php");
+    exit();
 }
 
-$produtos = $produto->listar_produtos();
+$produtos = $produtoObj->listar_produtos();
 
 ?>
 
@@ -95,7 +96,7 @@ $produtos = $produto->listar_produtos();
         $produtoData = ['nome' => '', 'descricao' => '', 'quantidade' => '', 'preco' => ''];
 
         if ($action == 'editar_produto' && $id) {
-            $produtoData = $produto->listar_produtos($id)[0];
+            $produtoData = $produtoObj->obter_produto($id);
         }
 
     ?>
@@ -122,7 +123,6 @@ $produtos = $produto->listar_produtos();
         <p style="color: green;"><?php echo $success_message; ?></p>
     <?php endif; ?>
 
-    <a href="logout.php">Logout</a>
     
 </body>
 </html>
