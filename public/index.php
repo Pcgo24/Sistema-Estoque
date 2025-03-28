@@ -5,6 +5,11 @@ require_once '../classes/produto.php';
 
 session_start();
 
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $produtoObj = new Produto($db);
 
 $action = $_GET['action'] ?? 'listar_produtos';
@@ -122,6 +127,8 @@ $produtos = $produtoObj->listar_produtos();
     <?php if (isset($success_message)): ?>
         <p style="color: green;"><?php echo $success_message; ?></p>
     <?php endif; ?>
+
+    <a href="logout.php">Sair</a>
 
     
 </body>
