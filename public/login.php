@@ -1,5 +1,5 @@
 <?php
-require_once '../db_connect.php'; // Caminho ajustado para incluir o arquivo corretamente
+require_once '../db_connect.php';
 require_once '../classes/Usuario.php';
 session_start();
 
