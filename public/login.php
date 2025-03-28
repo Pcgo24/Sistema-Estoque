@@ -25,14 +25,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = null;
 }
 ?>
-<form method="POST">
-    Username: <input type="text" name="username" required>
-    Password: <input type="password" name="password" required>
-    <button type="submit">Login</button>
-</form>
 
-<?php
-if (isset($error_message)) {
-    echo "<p style='color: red;'>$error_message</p>";
-}
-?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Estoque</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <header>
+        <h1>Login</h1>
+        <a href="register.php" class="header-link">Cadastre-se</a>
+    </header>
+
+    <div class="container">
+        <form method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <?php if (isset($error_message)): ?>
+            <p class="error"><?php echo $error_message; ?></p>
+        <?php endif; ?>
+    </div>
+    
+</body>
+</html>

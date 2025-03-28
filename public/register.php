@@ -2,9 +2,6 @@
 include '../db_connect.php';
 session_start();
 
-
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'] ?? null;
     $password = $_POST['password'] ?? null;
@@ -52,20 +49,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = null;
 }
 ?>
-<form method="POST">
-    Nome Completo: <input type="text" name="nome_completo" value="<?php echo htmlspecialchars($nome_completo ?? ''); ?>" required>
-    CPF: <input type="text" name="cpf" value="<?php echo htmlspecialchars($cpf ?? ''); ?>" required>
-    Data de Nascimento: <input type="date" name="data_nascimento" value="<?php echo htmlspecialchars($data_nascimento ?? ''); ?>" required>
-    Username: <input type="text" name="username" value="<?php echo htmlspecialchars($username ?? ''); ?>" required>
-    Password: <input type="password" name="password" value="<?php echo htmlspecialchars($password ?? ''); ?>" required>
-    <button type="submit">Registrar</button>
-</form>
 
-<?php
-if (isset($error_message)) {
-    echo "<p style='color: red;'>$error_message</p>";
-}
-if (isset($success_message)) {
-    echo "<p style='color: green;'>$success_message</p>";
-}
-?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Sistema de Estoque</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+
+    <header>
+        <h1>Registro</h1>
+        <a href="login.php" class="header-link">Login</a>
+    </header>
+
+    <div class="container">
+        <form method="POST">
+            <label for="nome_completo">Nome Completo:</label>
+            <input type="text" id="nome_completo" name="nome_completo" value="<?php echo htmlspecialchars($nome_completo ?? ''); ?>" required>
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" name="cpf" value="<?php echo htmlspecialchars($cpf ?? ''); ?>" required>
+            <label for="data_nascimento">Data de Nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo htmlspecialchars($data_nascimento ?? ''); ?>" required>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username ?? ''); ?>" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($password ?? ''); ?>" required>
+            <button type="submit">Registrar</button>
+        </form>
+
+        <?php if (isset($error_message)): ?>
+            <p class="error"><?php echo $error_message; ?></p>
+        <?php endif; ?>
+
+        <?php if (isset($success_message)): ?>
+            <p class="success"><?php echo $success_message; ?></p>
+        <?php endif; ?>
+    </div>
+    
+</body>
+</html>
