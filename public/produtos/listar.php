@@ -1,5 +1,5 @@
 <?php
-require_once '../db_connect.php';
+require_once '../../db_connect.php';
 
 $result = $conn->query("SELECT * FROM produtos");
 ?>
@@ -13,7 +13,7 @@ $result = $conn->query("SELECT * FROM produtos");
         <th>Preço</th>
         <th>Ações</th>
     </tr>
-    <?php while($row = $result->fetch_assoc()): ?>
+    <?php while($row = $result->fetch()): ?>
     <tr>
         <td><?= $row['id'] ?></td>
         <td><?= $row['nome'] ?></td>

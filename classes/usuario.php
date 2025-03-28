@@ -22,7 +22,5 @@ class Usuario {
         }
         return false;
     }
-
-    // Outros métodos relacionados ao usuário podem ser adicionados aqui
 }
 ?>
